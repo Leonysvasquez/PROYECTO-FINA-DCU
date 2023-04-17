@@ -22,7 +22,7 @@ require 'dbcon.php';
                 <div class="card">
                     <div class="card-header">
                         <h4>Student View Details 
-                            <a href="index.php" class="btn btn-danger float-end">BACK</a>
+                            <a href="body.php" class="btn btn-danger float-end">BACK</a>
                         </h4>
                     </div>
                     <div class="card-body">
