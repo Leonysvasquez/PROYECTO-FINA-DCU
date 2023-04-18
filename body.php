@@ -1,43 +1,4 @@
-<?php
-    session_start();
-    require 'dbcon.php';
 
-    // Procesar registro de usuario
-    if(isset($_POST['register'])) {
-        $name = mysqli_real_escape_string($con, $_POST['name']);
-        $email = mysqli_real_escape_string($con, $_POST['email']);
-        $password = mysqli_real_escape_string($con, $_POST['password']);
-
-        // Verificar si el correo electrónico ya está registrado
-        $query = "SELECT * FROM users WHERE email='$email'";
-        $result = mysqli_query($con, $query);
-        if(mysqli_num_rows($result) > 0) {
-            $_SESSION['error'] = "El correo electrónico ya está registrado";
-        } else {
-            // Insertar el usuario en la base de datos
-            $query = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')";
-            mysqli_query($con, $query);
-            $_SESSION['success'] = "¡Registro exitoso!";
-        }
-    }
-
-    // Procesar inicio de sesión de usuario
-    if(isset($_POST['login'])) {
-        $email = mysqli_real_escape_string($con, $_POST['email']);
-        $password = mysqli_real_escape_string($con, $_POST['password']);
-
-        // Verificar si las credenciales son válidas
-        $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-        $result = mysqli_query($con, $query);
-        if(mysqli_num_rows($result) == 1) {
-            $_SESSION['user'] = mysqli_fetch_assoc($result);
-            header('Location: index.php');
-            exit();
-        } else {
-            $_SESSION['error'] = "Credenciales inválidas";
-        }
-    }
-?>
 <!doctype html>
 <html lang="en">
 <head>
